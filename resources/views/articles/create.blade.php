@@ -3,8 +3,9 @@
 <div class="container">
 
 {!! Form::open(['action' => 'ArticlesController@store', 'method' => 'POST']) !!}
+@include('errors.list')
 @include('partials.form')
 {!! Form::close() !!}
-@include('errors.list')
+
 </div>
 @stop
