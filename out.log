@@ -1,0 +1,13 @@
++--------+----------+--------------------------+------------------+-------------------------------------------------+------------+
+| Domain | Method   | URI                      | Name             | Action                                          | Middleware |
++--------+----------+--------------------------+------------------+-------------------------------------------------+------------+
+|        | GET|HEAD | /                        |                  | Closure                                         |            |
+|        | GET|HEAD | articles                 | articles.index   | App\Http\Controllers\ArticlesController@index   |            |
+|        | GET|HEAD | articles/create          | articles.create  | App\Http\Controllers\ArticlesController@create  |            |
+|        | POST     | articles                 | articles.store   | App\Http\Controllers\ArticlesController@store   |            |
+|        | GET|HEAD | articles/{articles}      | articles.show    | App\Http\Controllers\ArticlesController@show    |            |
+|        | GET|HEAD | articles/{articles}/edit | articles.edit    | App\Http\Controllers\ArticlesController@edit    |            |
+|        | PUT      | articles/{articles}      | articles.update  | App\Http\Controllers\ArticlesController@update  |            |
+|        | PATCH    | articles/{articles}      |                  | App\Http\Controllers\ArticlesController@update  |            |
+|        | DELETE   | articles/{articles}      | articles.destroy | App\Http\Controllers\ArticlesController@destroy |            |
++--------+----------+--------------------------+------------------+-------------------------------------------------+------------+
