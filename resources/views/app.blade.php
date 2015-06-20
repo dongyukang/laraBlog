@@ -9,7 +9,9 @@
     @yield('header')
 </head>
 <body>
+{{--Navigation Bar--}}
 @include('partials.navbar')
+{{--Display for any flashed messages--}}
 @include('partials.messagebox')
 @yield('content')
 

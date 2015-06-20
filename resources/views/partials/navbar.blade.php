@@ -11,10 +11,14 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
+                <li><a href="/articles">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/auth/login">Login</a></li>
+                @if(is_null($user))
+                    <li><a href="/auth/login">Login</a></li>
+                @else
+                    <li> <a href="/auth/logout">Logout</a> </li>
+                @endif
             </ul>
         </div><!--/.nav-collapse -->
     </div>

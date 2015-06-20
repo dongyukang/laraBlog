@@ -22,6 +22,9 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers;
 
+    protected $redirectPath = '/articles'; //overide default path after login
+    protected $redirectTo = '/articles'; //Override default path after logout
+
     /**
      * Create a new authentication controller instance.
      *
@@ -55,10 +58,12 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+        $user->roles()->attach(1); //Assume user is a standard member
+        return $user;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CreateArticleRequest extends Request
 {
@@ -13,7 +14,16 @@ class CreateArticleRequest extends Request
      */
     public function authorize()
     {
-        return true; //TODO: For now allow all users
+        //Only admins and owners can post articles
+        $roles = Auth::user()->roles;
+        //Loop through roles and check for permission
+        foreach($roles as $role) {
+            if($role->name == "admin" || $role->name == "owner") {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

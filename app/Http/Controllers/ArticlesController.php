@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class ArticlesController extends Controller
@@ -16,8 +17,9 @@ class ArticlesController extends Controller
 
     public function __construct()
     {
+        //TODO: Create custom middleware to block non-admin members from even viewing the create page
         //Restrict access to only logged in users
-        $this->middleware('auth',['except' => array('index', 'show', 'store')]); //Only authenticate create method
+        $this->middleware('checkAdmin',['except' => array('index', 'show')]); //Require admin status for all pages except index/show
     }
     /**
      * Display a listing of the resource.
@@ -26,7 +28,7 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = Article::get();
+        $articles = DB::table('articles')->latest()->paginate(5);
         return view('articles.index',compact('articles'));
     }
 
