@@ -21,5 +21,5 @@
                 @endif
             </ul>
         </div><!--/.nav-collapse -->
-    </div>
+    </div>;
 </nav>

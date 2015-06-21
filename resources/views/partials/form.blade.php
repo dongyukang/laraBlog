@@ -1,3 +1,5 @@
+{{--Form for posting articles--}}
+
 {{--Include extra css for select2--}}
 @section('header')
 <link rel="stylesheet" href="{{asset('components/select2/css/select2.min.css')}}" />
@@ -15,14 +17,15 @@
 {!! Form::label('tag_list','Tags:')!!}
 {!! Form::select('tag_list[]',$tags, null,['id' => 'tag_list', 'class' => 'form-control', 'multiple'])!!}
 <br><br><br><br>
-{!! Form::submit('Create Article',['class' => 'btn btn-primary form-control']) !!}
+{!! Form::submit($submitText,['class' => 'btn btn-primary form-control']) !!}
 
 {{--Javascript for select2, to make the tags look nice--}}
 @section('footer')
 <script src="{{asset('components/select2/js/select2.min.js')}}"></script>
-<!-- Script to generate the slug automatically-->
+<!-- Generate the slug automatically unless otherwise specified-->
+@if($defaultSlug == false)
 <script src="{{asset('components/scripts/matchSlug.js')}}"></script>
-
+@endif
 <script>
     $('#tag_list').select2({
         placeholder: 'Choose a tag or create your own',

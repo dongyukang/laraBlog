@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <div class="container">
-    <h1>Articles Index Page</h1>
+    <h1>Articles Index Page</h1><hr>
 
     @foreach($articles as $article)
     <h2> <a href="/articles/{{$article->slug}}"> {{$article->title}} </a></h2>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\CreateCommentRequest;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -63,8 +64,8 @@ class ArticlesController extends Controller
      */
     public function show(Article $article)
     {
-//        dd($article);
-        return view('articles.show',compact('article'));
+        $comments = $article->comments()->latest()->get();
+        return view('articles.show',compact('article','comments'));
     }
 
     /**
@@ -75,7 +76,9 @@ class ArticlesController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        $tags = Tag::lists('name', 'id'); //Use names as keys, and id's as
+        $defaultSlug = true; //Dont automatically update slug
+        return view('articles.edit',compact('tags','article'));
     }
 
     /**
@@ -84,9 +87,11 @@ class ArticlesController extends Controller
      * @param  Article  $article
      * @return Response
      */
-    public function update(Article $article)
+    public function update(CreateArticleRequest $request, Article $article)
     {
-        //
+        $article->update($request->all());
+        $this->handleTags($article,$request->input('tag_list'));
+        return redirect('articles/'.$article->slug);
     }
 
     /**
@@ -140,4 +145,6 @@ class ArticlesController extends Controller
         //Now sync tags
         $article->tags()->sync($newTagList);
     }
+
+
 }

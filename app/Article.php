@@ -18,4 +18,16 @@ class Article extends Model
     public function tags() {
         return $this->belongsToMany('App\Tag')->withTimestamps(); //Auto-set timestamps
     }
+
+    //Get comments posted on this article
+    public function comments() {
+        return $this->hasMany('App\Comment');
+    }
+
+    //Returns an array of ids of the tags associated with the article.
+    //Called in the form automatically to get the attribute tag_list for form-model binding
+    public function getTagListAttribute() {
+        return $this->tags->lists('id')->all();
+    }
+
 }

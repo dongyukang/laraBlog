@@ -22,6 +22,8 @@ Route::bind('articles', function($value, $route) {
     return \App\Article::where('slug', '=', $value)->firstOrFail();
 });
 
+Route::post('/articles/{articles}/comment',['as' => 'comment.new','uses' =>'CommentsController@storeComment']);
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
