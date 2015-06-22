@@ -14,16 +14,17 @@ use Illuminate\Support\Facades\Session;
 
 class CommentsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth',['except' => array('index', 'show')]); //Require admin status for all pages except index/show
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth',['except' => array('index', 'show')]); //Require admin status for all pages except index/show
+//    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateCommentRequest $request
-     * @return Response
+     * @param Article $article The article to create the comment for
+     * @param CreateCommentRequest $request Ensures the user is logged in and filled out the comment
+     * @return Response Redirects to the same article page
      */
     public function storeComment(Article $article, CreateCommentRequest $request)
     {

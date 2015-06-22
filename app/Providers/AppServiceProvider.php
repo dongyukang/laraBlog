@@ -16,7 +16,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //Whenever navbar partial is loaded, provide the required data
         view()->composer('partials.navbar', function($view){
-            $view->with('user', Auth::user());
+            $data = array(
+                'user' => Auth::user(),
+                'isAdmin' => checkAdminOwner()
+            );
+            $view->with($data);
         });
     }
 

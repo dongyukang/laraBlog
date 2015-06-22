@@ -106,6 +106,15 @@ class ArticlesController extends Controller
     }
 
     /**
+     * Show a preview of the given page
+     *
+     */
+    public function preview() {
+        return view('articles.preview');
+    }
+
+
+    /**
      * Publishes an article using the form input passed in
      *
      * @param CreateArticleRequest $request the form input from the user
@@ -145,6 +154,7 @@ class ArticlesController extends Controller
         //Now sync tags
         $article->tags()->sync($newTagList);
     }
+
 
 
 }

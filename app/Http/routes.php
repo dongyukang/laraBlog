@@ -24,6 +24,8 @@ Route::bind('articles', function($value, $route) {
 
 Route::post('/articles/{articles}/comment',['as' => 'comment.new','uses' =>'CommentsController@storeComment']);
 
+Route::get('/previewArticle','ArticlesController@preview');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
