@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug')->default('')->unique();
             $table->text('body');
             $table->timestamps();
-
+            $table->softDeletes(); //Setting this will prevent the article from being shown
             //Reference the user who created the article
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class CheckAdminOwner
 {
     /**
-     * Handle an incoming request.
+     * Verifies that the user is an admin or an owner
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

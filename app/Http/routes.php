@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',function() {
+    return redirect('/articles');
 });
 
 Route::resource('articles','ArticlesController');
-
+Route::patch('articles/{article}/restore','ArticlesController@restoreArticle');
 //Use slug-based urls and return the matching object, not just the id
 Route::bind('articles', function($value, $route) {
     return \App\Article::where('slug', '=', $value)->firstOrFail();
@@ -24,7 +24,16 @@ Route::bind('articles', function($value, $route) {
 
 Route::post('/articles/{articles}/comment',['as' => 'comment.new','uses' =>'CommentsController@storeComment']);
 
-Route::get('/previewArticle','ArticlesController@preview');
+Route::get('/previewArticle','ArticlesController@preview'); //TODO
+Route::get('/admin/controlpanel','AdminController@controlPanel'); //TODO
+
+
+Route::Resource('users','UsersController');
+//Use username-based urls and return the matching object, not just the id
+Route::bind('users', function($value, $route) {
+    return \App\User::where('name', '=', $value)->firstOrFail();
+});
+
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

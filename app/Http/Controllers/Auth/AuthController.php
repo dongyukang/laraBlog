@@ -43,8 +43,10 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
+        $data['name'] = strtolower($data['name']); //Force username to be unique as a lowercase
+
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'name' => 'required|max:40|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -58,6 +60,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        $data['name'] = strtolower($data['name']); //Force username to be unique as a lowercase
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],

@@ -15,6 +15,7 @@ class RoleTableSeeder extends Seeder
             ['id' => '1', 'name' => 'member', 'created_at' => new DateTime, 'updated_at' => new DateTime],
             ['id' => '2', 'name' => 'admin', 'created_at' => new DateTime, 'updated_at' => new DateTime],
             ['id' => '3', 'name' => 'owner', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '4', 'name' => 'banned', 'created_at' => new DateTime, 'updated_at' => new DateTime],
         );
 
         DB::table('roles')->insert($roles);//

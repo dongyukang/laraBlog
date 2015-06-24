@@ -6,6 +6,7 @@ use App\Article;
 use App\Http\Requests\CreateArticleRequest;
 use App\Http\Requests\CreateCommentRequest;
 use App\Tag;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,7 @@ class ArticlesController extends Controller
     {
         //TODO: Create custom middleware to block non-admin members from even viewing the create page
         //Restrict access to only logged in users
-        $this->middleware('checkAdmin',['except' => array('index', 'show')]); //Require admin status for all pages except index/show
+        $this->middleware('checkAdmin',['except' => array('index', 'show')]); //Require admin status for all methods except index/show
     }
     /**
      * Display a listing of the resource.
@@ -29,7 +30,7 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = DB::table('articles')->latest()->paginate(5);
+        $articles = Article::latest()->paginate(5);
         return view('articles.index',compact('articles'));
     }
 
@@ -95,14 +96,29 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Soft-deletes the specified article by setting the deleted_at attribute.
      *
      * @param  Article  $article
      * @return Response
      */
     public function destroy(Article $article)
     {
-        //
+        //Soft delete the article by setting the field
+        $article->delete();
+        Session::flash('flash_message','Your article has been deleted!'); //Notify user
+        return redirect('articles/');
+    }
+
+    /**
+     * Restores the deleted article
+     * @param Article $article
+     * @return redirect
+     */
+    public function restoreArticle($articleSlug) {
+        $article = Article::withTrashed()->where('slug', '=',$articleSlug)->first();
+        $article->restore();
+        Session::flash('flash_message','Your article has been restored!'); //Notify user
+        return redirect('admin/controlpanel');
     }
 
     /**

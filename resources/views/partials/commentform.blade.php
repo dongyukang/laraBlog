@@ -11,7 +11,7 @@
         {!! Form::label('body','Post a comment!')!!}
         {!! Form::textarea('body',null,['class' => 'form-control', 'placeholder' => 'Enter a comment'])!!}
         <br>
-        {!! Form::submit('Post Comment',['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit('Post Comment',['id' => 'submitButton', 'class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close()!!}
     @else

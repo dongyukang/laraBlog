@@ -50,10 +50,16 @@
 								<button type="submit" class="btn btn-primary">Login</button>
 
 								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
+
 							</div>
 						</div>
+                        <div class="col-md-9 col-md-offset-4">
+                            <a class="btn btn-link" href="{{ url('/auth/register') }}">Or Register...</a>
+                        </div>
+
 					</form>
 				</div>
+
 			</div>
 		</div>
 	</div>

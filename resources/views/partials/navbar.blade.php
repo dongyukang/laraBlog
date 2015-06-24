@@ -15,7 +15,7 @@
                 @if(is_null($user) == false)
                     @if($isAdmin)
                         <li><a href="/articles/create">New Article</a></li>
-                        <li><a href="#">Admin Panel</a></li>
+                        <li><a href="/admin/controlpanel">Admin Panel</a></li>
                     @endif
                 @endif
             </ul>

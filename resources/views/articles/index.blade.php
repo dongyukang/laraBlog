@@ -7,8 +7,9 @@
     <h2> <a href="/articles/{{$article->slug}}"> {{$article->title}} </a></h2>
 
     {{--Only display the first 100 words of the article--}}
+    {{--TODO: This can sometimes cut off mardown elements and must be resolved--}}
     {!! Markdown::parse(Illuminate\Support\Str::words($article->body, 100)) !!}
-
+    {{--{!!$article->markdownBody!!}--}}
     {{--Display the poster and the time difference--}}
     <br/><br/><i>Posted by {{ \App\Article::where('id', '=', $article->id)->first()->user->name }} {{Carbon\Carbon::parse($article->created_at)->diffForHumans()}}</i>
 
