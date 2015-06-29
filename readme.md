@@ -2,15 +2,15 @@
 
 LaraBlog is a simple blog powered by Laravel 5.
 
-###Features Include
+###Features Included:
 
-* Markdown support, so articles can be look nice without needing html.
+* Markdown support, so articles can be look nice without needing to write html.
 * Comment support, allowing users to leave comments on articles and see what other users have said.
 * Profile pages, so users can look up others to see their comment history. Users can also create a custom 'about me' page.
 * User roles. Admins can post, edit, and delete articles, while Owners can create new Admins. Users may also be banned, which prevents them from posting.
 * Article tagging. Articles can be tagged with custom tags for easy organization.
 
-###Using LaraBlog
+###Using LaraBlog:
 
 I wrote LaraBlog to learn more about laravel 5 and it's associated tools. However, you can easily install and run LaraBlog if you want to try it out! Here's how:
 
@@ -21,7 +21,7 @@ I wrote LaraBlog to learn more about laravel 5 and it's associated tools. Howeve
 5. Log in using the account "master@gmail.com" with the password "password". This is an owner-level account with access to everything.
 
 
-###Resources Used
+###Resources Used:
 
 I used a few different libraries and frameworks to make LaraBlog. First and foremost, of course, was [laravel 5](http://laravel.com/), which powers the blog.
 

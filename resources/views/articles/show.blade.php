@@ -28,11 +28,6 @@
         </i></h5>
     @endunless
     <br><br><br>
-    <p style="color: red">
-        TODO:
-        Also need to update README for github
-        ALSO need to create a final master account and delete jake/bob/boss. Empty the DB file. Get it ready for public.
-    </p>
 
     {{--Only show comments page if logged in--}}
     @if(Auth::guest())
