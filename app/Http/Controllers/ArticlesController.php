@@ -120,13 +120,6 @@ class ArticlesController extends Controller
         return redirect('admin/controlpanel');
     }
 
-    /**
-     * Show a preview of the given page
-     *
-     */
-    public function preview() {
-        return view('articles.preview');
-    }
 
 
     /**

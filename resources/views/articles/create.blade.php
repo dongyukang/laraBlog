@@ -6,6 +6,5 @@
 @include('errors.list')
 @include('partials.form',['defaultSlug' => false, 'submitText' => 'Post Article'])
 {!! Form::close() !!}
-<a href="/previewArticle">Preview Article...</a>
 </div>
 @stop

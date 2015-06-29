@@ -30,9 +30,8 @@
     <br><br><br>
     <p style="color: red">
         TODO: Make this form not ugly.
-        Add draft-mode for articles (?)
         Also need an admin page to assign owner/admin status!
-        TODO: Either finish the preview mode or delete it entirely
+        Also need to update README for github
     </p>
 
     {{--Only show comments page if logged in--}}
