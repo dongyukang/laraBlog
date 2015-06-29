@@ -36,7 +36,7 @@ class CreateArticleRequest extends Request
         return [
             'title' => 'required|min:10',
             'body' => 'required|min:10',
-            'slug' => 'required|min:10',
+            'slug' => 'required|min:10|alpha_dash|unique:articles',
         ];
     }
 }

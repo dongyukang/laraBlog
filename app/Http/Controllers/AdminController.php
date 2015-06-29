@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -24,8 +25,9 @@ class AdminController extends Controller
     public function controlPanel()
     {
         $userList = User::lists('name','id'); //Pass a list of users and ids
-        $deletedArticlesList = Article::onlyTrashed()->get();
-        return view('admin.controlpanel',compact('userList','deletedArticlesList'));
+        $deletedArticlesList = Article::onlyTrashed()->latest()->get();
+        $bannedUsersList = Role::where('name', '=', 'banned')->first()->users;
+        return view('admin.controlpanel',compact('userList','deletedArticlesList', 'bannedUsersList'));
     }
 
     /**

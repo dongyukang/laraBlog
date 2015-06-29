@@ -7,11 +7,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">SimpleBlog</a>
+            <a class="navbar-brand" href="/articles">SimpleBlog</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/articles">Home</a></li>
+                <li><a href="/users">Members</a></li>
                 @if(is_null($user) == false)
                     @if($isAdmin)
                         <li><a href="/articles/create">New Article</a></li>

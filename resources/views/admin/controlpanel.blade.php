@@ -13,7 +13,9 @@
     @elseif(checkSingleRole('Admin') == true)
     Permission Level: <b>Admin</b>
     @endif
-    <hr><div class="well">
+    <hr>
+    {{--List of articles which have been deleted--}}
+    <div class="well">
         <h2>Restore Deleted Articles</h2>Any deleted articles can be restored here. To delete an existing article, visit that article's page.<hr>
         @if($deletedArticlesList->isEmpty())
         <i>No deleted articles</i>
@@ -52,6 +54,48 @@
 
     </div>
 
+    {{--List of users which have been banned--}}
+    <div class="well">
+        <h2>Banned Users</h2>Any users who have been banned are  listed here. To ban a user or see their posting history, visit that users profile page.<hr>
+        @if($bannedUsersList->isEmpty())
+            <i>No banned users</i>
+        @else
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Member Since</th>
+                    <th>User Page</th>
+                    <th>Unban User</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($bannedUsersList as $user)
+                    <tr>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->created_at->format('M d, Y')}}</td>
+                        <td><a href="/users/{{$user->name}}">Visit page</a></td>
+                        <td>
+                            {{--Form to unban the user--}}
+
+                            {!! Form::open(['action' => ['UsersController@unbanUser', $user->name], 'method' => 'PATCH']) !!}
+                            {!! Form::submit('Unban User',['class' => 'btn btn-warning form-control']) !!}
+                            {!!Form::close()!!}
+
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+
+
+
+        @endif
+
+
+    </div>
 
 
     </div>

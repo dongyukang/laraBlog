@@ -4,7 +4,7 @@
 use App\User;
 
 /**
- * Returns true if the current user is an admin or an owner, false if the user is logged out or a member
+ * Returns true if the current user is an admin or an owner, false if the user is logged out, not an admin, or banned.
  *
  * @return bool
  */
@@ -18,7 +18,11 @@ function checkAdminOwner() {
     //Loop through roles and check for permission
     foreach($roles as $role) {
         if($role->name == "admin" || $role->name == "owner") {
-            return true;
+            //Double check to make sure user is not banned
+            if(checkSingleRole("banned") == false)
+                return true;
+            else
+                return false; //User is an admin but is banned
         }
     }
     //User is not an admin or an owner

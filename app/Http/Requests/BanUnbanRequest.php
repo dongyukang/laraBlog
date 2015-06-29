@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CreateCommentRequest extends Request
+class BanUnbanRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,16 +14,15 @@ class CreateCommentRequest extends Request
      */
     public function authorize()
     {
-        //Check that user is logged in
+        //User must be logged in, and an admin
         if(Auth::guest()) {
-            return false;
-        }
-        //Check that user is not banned
-        if(checkUserRole(Auth::user()->id,'banned') == true)
-        {
-            return false; //User was banned
-        }
-        return true;
+            return false; //User is logged out
+        } elseif(checkSingleRole('banned') == true) {
+            return false; //User is banned
+        } elseif(checkAdminOwner())
+            return true;
+
+        return false;
     }
 
     /**
@@ -33,8 +32,9 @@ class CreateCommentRequest extends Request
      */
     public function rules()
     {
+        //No rules
         return [
-            'body' => 'required|min:10',
+            //
         ];
     }
 }

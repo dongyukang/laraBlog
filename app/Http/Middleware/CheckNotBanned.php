@@ -6,10 +6,10 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class CheckAdminOwner
+class CheckNotBanned
 {
     /**
-     * Verifies that the user is an admin or an owner and also NOT banned.
+     * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -22,16 +22,10 @@ class CheckAdminOwner
             return redirect('/auth/login');
         }
 
-        //Ensure that the user is an admin or an owner
+        //Ensure that the user is not banned
         $roles = Auth::user()->roles;
-        $valid = false;
+        $valid = true;
         //Loop through roles and check for permission
-        foreach($roles as $role) {
-            if($role->name == "admin" || $role->name == "owner") {
-                $valid = true;
-            }
-        }
-        //Now check to see if the user was banned
         foreach($roles as $role) {
             if($role->name == "banned") {
                 $valid = false;
@@ -45,4 +39,5 @@ class CheckAdminOwner
 
         return $next($request);
     }
+
 }

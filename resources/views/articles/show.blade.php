@@ -30,17 +30,18 @@
     <br><br><br>
     <p style="color: red">
         TODO: Make this form not ugly.
-        Add banning (maybe), add draft-mode for articles (?)
-        TODO IMPORTANT: On index page, you can cut off in between markdown which will leave the charactors not converted
-        Also need an admin page to assign roles!
-        TODO: Either finish the preview mode or delelte it entirely
+        Add draft-mode for articles (?)
+        Also need an admin page to assign owner/admin status!
+        TODO: Either finish the preview mode or delete it entirely
     </p>
 
     {{--Only show comments page if logged in--}}
     @if(Auth::guest())
-        @include('partials.commentform',['enableForm' => false])
+        @include('partials.commentform',['enableForm' => false, 'message' => 'You must be logged in to comment!'])
+    @elseif(checkSingleRole("banned"))
+        @include('partials.commentform',['enableForm' => false, 'message' => 'You have been banned and cannot comment!'])
     @else
-        @include('partials.commentform',['enableForm' => true])
+        @include('partials.commentform',['enableForm' => true, 'message' => 'Leave a comment!'])
     @endif
 
     {{--Display Comments--}}
@@ -49,12 +50,20 @@
         <i>Nobody has commented yet. Be the first!</i>
     @else
         @foreach($comments as $comment)
+
+
             <div class="well" id="comment{{$comment->id}}">
-                <a href="#"></a>
-                <b><a href="/users/{{$comment->user->name}}">{{$comment->user->capitalName}}</a>:</b> {{$comment->body}}
-                @if(checkAdminOwner())
-                    <a href="#"><p style="color: red">TODO: Delete Post</p></a>
+                <b><a href="/users/{{$comment->user->name}}">{{$comment->user->capitalName}}</a>:</b>
+                {{--Ignore comments from baned users--}}
+                @if(checkUserRole($comment->user->id,'banned'))
+                    <i>This user has been banned</i>
+                @else
+                    {{$comment->body}}
+                    <a href="/articles/{{$comment->article->slug}}#comment{{$comment->id}}">
+                    <p>Link to comment</p></a>
                 @endif
+
+
             </div>
         @endforeach
     @endif

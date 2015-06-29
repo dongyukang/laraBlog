@@ -17,6 +17,5 @@
 
         {!!Form::close()!!}
         <br><br>
-        TODO: Validate form for THIS USER only (with a request, not just a middleware)
    </div>
 @stop

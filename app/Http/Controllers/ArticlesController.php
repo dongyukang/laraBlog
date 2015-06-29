@@ -19,7 +19,6 @@ class ArticlesController extends Controller
 
     public function __construct()
     {
-        //TODO: Create custom middleware to block non-admin members from even viewing the create page
         //Restrict access to only logged in users
         $this->middleware('checkAdmin',['except' => array('index', 'show')]); //Require admin status for all methods except index/show
     }

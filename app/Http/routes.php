@@ -29,6 +29,9 @@ Route::get('/admin/controlpanel','AdminController@controlPanel'); //TODO
 
 
 Route::Resource('users','UsersController');
+Route::patch('/users/{users}/banUser','UsersController@banUser');
+Route::patch('/users/{users}/unbanUser','UsersController@unbanUser');
+
 //Use username-based urls and return the matching object, not just the id
 Route::bind('users', function($value, $route) {
     return \App\User::where('name', '=', $value)->firstOrFail();

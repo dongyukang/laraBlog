@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Session;
 
 class CommentsController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth',['except' => array('index', 'show')]); //Require admin status for all pages except index/show
-//    }
+    public function __construct()
+    {
+        $this->middleware('notBanned',['only' => array('storeComment')]); //Require non-banned status to post comments
+    }
 
     /**
      * Store a newly created resource in storage.
