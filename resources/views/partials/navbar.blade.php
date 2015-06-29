@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/articles">SimpleBlog</a>
+            <a class="navbar-brand" href="/articles">LaraBlog</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -25,6 +25,7 @@
                 @if(is_null($user))
                     <li><a href="/auth/login">Login</a></li>
                 @else
+                    <li> <a href="/users/{{Auth::user()->name}}">My Profile</a> </li>
                     <li> <a href="/auth/logout">Logout</a> </li>
                 @endif
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminPromoteDemoteRequest;
 use App\Http\Requests\BanUnbanRequest;
 use App\Role;
 use App\User;
@@ -19,6 +20,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('checkAdmin',['only'   => array('banUser, unbanUser')]); //Only allow bans from admins
+        $this->middleware('checkOwner',['only'   => array('promoteUser, demoteUser')]); //Only allow bans from admins
     }
     /**
      * Display a listing of the resource.
@@ -31,26 +33,6 @@ class UsersController extends Controller
         //Provide a different list of roles options
 
         return view('users.index',compact('userList'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
     }
 
     /**
@@ -119,6 +101,12 @@ class UsersController extends Controller
      * @return redirect
      */
     public function banUser(User $user, BanUnbanRequest $request) {
+        //Ensure that the user to ban is not a higher rank than you
+        if(checkSingleRole('admin') == true && checkUserRole($user->id,'owner') == true) {
+            //An admin can not ban an owner
+            Session::flash('flash_message','You do not have permission to do that!'); //Notify user
+            return redirect('/users/'.$user->name);
+        }
         //Add the banned role to this user
         $user->roles()->attach(Role::where('name','=','banned')->first());
         Session::flash('flash_message','The user was banned!'); //Notify user
@@ -134,6 +122,13 @@ class UsersController extends Controller
      * @return redirect
      */
     public function unbanUser(User $user, BanUnbanRequest $request) {
+        //Ensure that the user to ban is not a higher rank than you
+        if(checkSingleRole('admin') == true && checkUserRole($user->id,'owner') == true) {
+            //An admin can not ban an owner
+            Session::flash('flash_message','You do not have permission to do that!'); //Notify user
+            return redirect('/users/'.$user->name);
+        }
+
         //Add the banned role to this user
         $user->roles()->detach(Role::where('name','=','banned')->first());
         Session::flash('flash_message','The user was unbanned!'); //Notify user
@@ -142,14 +137,34 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Gives the specified user admin status
      *
      * @param User $user
-     * @return Response
-     * @internal param int $id
+     * @param Request $request
+     * @return redirect
      */
-    public function destroy(User $user)
-    {
-        //
+    public function promoteUser(User $user, AdminPromoteDemoteRequest $request) {
+        //Add the banned role to this user
+        $user->roles()->attach(Role::where('name','=','admin')->first());
+        Session::flash('flash_message','The user was promoted to admin!'); //Notify user
+        return redirect('/users/'.$user->name);
+
     }
+
+    /**
+     * UnBans the specified user
+     *
+     * @param User $user
+     * @param Request $request
+     * @return redirect
+     */
+    public function demoteUser(User $user, AdminPromoteDemoteRequest $request) {
+        //Add the banned role to this user
+        $user->roles()->detach(Role::where('name','=','admin')->first());
+        Session::flash('flash_message','The user was demoted and is no longer an admin!'); //Notify user
+        return redirect('/users/'.$user->name);
+
+    }
+
+
 }

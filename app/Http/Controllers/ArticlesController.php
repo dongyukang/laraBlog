@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Http\Requests\CreateArticleRequest;
 use App\Http\Requests\CreateCommentRequest;
+use App\Http\Requests\EditArticleRequest;
 use App\Tag;
 use DateTime;
 use Illuminate\Http\Request;
@@ -84,10 +85,11 @@ class ArticlesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Article  $article
+     * @param EditArticleRequest $request
+     * @param  Article $article
      * @return Response
      */
-    public function update(CreateArticleRequest $request, Article $article)
+    public function update(EditArticleRequest $request, Article $article)
     {
         $article->update($request->all());
         $this->handleTags($article,$request->input('tag_list'));
@@ -120,7 +122,19 @@ class ArticlesController extends Controller
         return redirect('admin/controlpanel');
     }
 
-
+    /**
+     * Displays a list of all articles with the specified tag name
+     * @param $tags
+     * @return redirect
+     */
+    public function tagLookup($tags) {
+        $tag = Tag::where('name','=',$tags)->first();
+        if($tag == null) {
+            return redirect('/articles'); //This tag does not exist
+        }
+        $articles = $tag->articles()->latest()->paginate(5);;
+        return view('tags.index',compact('tag','articles'));
+    }
 
     /**
      * Publishes an article using the form input passed in

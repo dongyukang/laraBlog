@@ -23,15 +23,15 @@
         <h5>Tags:<i>
 
             @foreach($article->tags as $tag)
-                {{$tag->name}}
+                <a href="/tags/{{$tag->name}}">{{$tag->name}}</a>
             @endforeach
         </i></h5>
     @endunless
     <br><br><br>
     <p style="color: red">
-        TODO: Make this form not ugly.
-        Also need an admin page to assign owner/admin status!
+        TODO:
         Also need to update README for github
+        ALSO need to create a final master account and delete jake/bob/boss. Empty the DB file. Get it ready for public.
     </p>
 
     {{--Only show comments page if logged in--}}

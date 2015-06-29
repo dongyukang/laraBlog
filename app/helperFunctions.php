@@ -2,6 +2,7 @@
 
 //Common helper functions that are available in all pages
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Returns true if the current user is an admin or an owner, false if the user is logged out, not an admin, or banned.
@@ -30,7 +31,7 @@ function checkAdminOwner() {
 }
 
 /**
- * Returns true if the user has the specified role, false otherwise
+ * Returns true if the logged in user has the specified role, false otherwise
  *
  * @return bool
  */
@@ -77,4 +78,21 @@ function checkUserRole($userId, $roleToCheck) {
     }
     //User is not an admin
     return false;
+}
+
+/**
+ * Returns true if the logged in user is the same as the given user
+ *
+ * @param $userId Id of the user to check
+ * @return true if users are same, false if not
+ */
+function checkSameUser($userId) {
+    if(Auth::guest()) {
+        return false; //User not logged in
+    }
+    if(Auth::user()->id == $userId) {
+        return true;
+    } else {
+        return false;
+    }
 }

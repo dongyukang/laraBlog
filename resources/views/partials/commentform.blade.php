@@ -8,7 +8,7 @@
     {!! Form::open(['action' => ['CommentsController@storeComment', $article->slug], 'method' => 'POST']) !!}
     <div class="input-group ">
         {!! Form::label('body','Post a comment!')!!}
-        {!! Form::textarea('body',null,['class' => 'form-control', 'placeholder' => 'Enter a comment'])!!}
+        {!! Form::textarea('body',null,['class' => 'form-control', 'size' => '100x6', 'placeholder' => 'Enter a comment'])!!}
         <br>
         {!! Form::submit('Post Comment',['id' => 'submitButton', 'class' => 'btn btn-primary form-control']) !!}
     </div>
@@ -18,7 +18,7 @@
 
         <div class="input-group">
             {!! Form::label('body', $message)!!}
-            {!! Form::textarea('body',null,['class' => 'form-control','disabled', 'placeholder' => 'Enter a comment'])!!}
+            {!! Form::textarea('body',null,['class' => 'form-control', 'disabled', 'size' => '100x6', 'placeholder' => 'Enter a comment'])!!}
             <br>
             {!! Form::submit('Post Comment',['class' => 'btn btn-default form-control disabled']) !!}
         </div>
